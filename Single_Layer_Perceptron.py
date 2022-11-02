@@ -68,31 +68,31 @@ initial_weight  = [random.random() for j in range(len(x[0]))] #Vetor Peso
 
 def activation(y): #Função Degrau Bipolar
      if y >= 0:
-          return 1
+          return 1  #Caso o resultado seja positivo, o neurônio é ativado
      if y < 0:
           return -1
 
-def weighted_sum(amostra,peso):
-     peso_ponderado = []
-     for i in range(len(amostra)):
-          a = amostra[i] * peso[i]
-          peso_ponderado.append(a)
+def weighted_sum(amostra,peso):  #soma ponderada das entradas
+     peso_ponderado = []  #inicia uma lista vazia para alocar os pesos
+     for i in range(len(amostra)):  #percorrendo a lista de amostras
+          a = amostra[i] * peso[i]  #multiplicando a amostra e o peso 
+          peso_ponderado.append(a)  #adicionando o valor à lista de pesos
      return peso_ponderado
 
-def adjustment(initial_weight,sample,expected_result,learnRate,y):
-     new_weights = []
+def adjustment(initial_weight,sample,expected_result,learnRate,y):  #função para ajustar os pesos. Esta função
+     new_weights = []                                               #é a que gera o "aprendizado" da rede
      for i in range(len(sample)):
-          a = initial_weight[i] + learnRate*(expected_result-y)*sample[i]
-          new_weights.append(a)
+          a = initial_weight[i] + learnRate*(expected_result-y)*sample[i]  #realizando a operação de ajuste do peso de acordo
+          new_weights.append(a)                                            #com o erro esperado
      return new_weights
 
 
-for i in range(len(x)):
-     sample = x[i]
-     expected_result = d[i]
-     weight = weighted_sum(sample,initial_weight)
-     u = sum(weight)
-     y = activation(u)
+for i in range(len(x)):  #Percorrendo a lista de treinamento
+     sample = x[i]                 #Aqui ocorre a comparação entre o valor da amostra
+     expected_result = d[i]        #e o resultado esperado pra ela
+     weight = weighted_sum(sample,initial_weight)  #Realizando a soma ponderada pra definir o peso ideal
+     u = sum(weight)          
+     y = activation(u)   #usando a função degrau para decidir se ativa ou não o neurônio
 
      while (y != expected_result):
           initial_weight = adjustment(initial_weight,sample,expected_result,learnRate,y)

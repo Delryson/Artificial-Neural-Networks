@@ -1,0 +1,1 @@
+Códigos inspirados na teoria presente no livro "Redes Neurais Artificiais" - Ivan N. da Silva
